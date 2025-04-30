@@ -5,6 +5,10 @@ import pickle
 app = Flask(__name__)
 # CORS(app, resources={r'*': {'origins': '*'}})
 
+@app.route("/")
+def hello_world():
+    print('hello')
+    return "<h1>Hello World!<h1>"
 
 @app.route("/sentiment", methods=['POST'])
 def get_sentiment():
