@@ -3,7 +3,7 @@ from flask_cors import CORS
 import pickle
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r'/sentiment': {'origins': 'http://localhost:5173/'}})
 
 
 @app.route("/sentiment", methods=['POST'])
