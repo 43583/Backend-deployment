@@ -3,7 +3,7 @@ from flask_cors import CORS
 import pickle
 
 app = Flask(__name__)
-CORS(app, resources={r'/sentiment': {'origins': 'https://sentiment-front-f9yy.onrender.com/'}})
+CORS(app, resources={r'/sentiment': {'origins': 'https://sentiment-front-f9yy.onrender.com'}})
 
 @app.route("/sentiment", methods=['POST'])
 def get_sentiment():
