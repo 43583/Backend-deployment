@@ -3,24 +3,21 @@ from flask_cors import CORS
 import pickle
 
 app = Flask(__name__)
-CORS(app)
-
-@app.route("/")
-def hello_world():
-    print('hello')
-    return "<h1>Hello World!<h1>"
+CORS(app, resources={r'/sentiment': {'origins': 'https://sentiment-front-f9yy.onrender.com/'}})
 
 @app.route("/sentiment", methods=['POST'])
 def get_sentiment():
-    # input_data = request.json
-    input_data = 'This is very good!'
+    input_data = request.json
+    print(input_data['text'])
+    input_data = input_data['text']
+
     with open('myData.pkl', 'rb') as f:
         sentiment_analysis = pickle.load(f)
 
-    print(sentiment_analysis.predict(input_data))
-    # print(input_data)
+    sentiment = sentiment_analysis.predict([input_data])
 
-    return {'input_data': input_data, 'message': 'Hello!'}
+
+    return {'input_data': input_data, 'message': sentiment[0]}
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port='8080', debug=False)
+    app.run(host='0.0.0.0', port='5000', debug=False)
